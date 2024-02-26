@@ -1,7 +1,7 @@
 
 # Structurama for Go
 
-Excel Reader for Go is a lightweight package designed to simplify the process of reading data from Excel files and mapping it to custom Go structs.
+Structurama is a lightweight package designed to simplify the process of reading data from Excel files and mapping it to custom Go structs.
 
 ## Features
 
@@ -16,37 +16,58 @@ go get -u github.com/PreciousNyasulu/structurama
 
 ## Quick Start
 
-```go
-package main
-
-import (
-	"fmt"
-	"github.com/PreciousNyasulu/structurama/reader"
-)
-
-func main() {
-	data, err := structurama.ReadFile("./example.xlsx", Person{}, true)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Println(data)
-}
-```
-
 ## Custom Struct
 
 Define a custom struct to represent the structure of the data you expect from the Excel file.
 
 ```go
 type Person struct {
-	Id        string `xlsx:"0"`
-	FirstName string `xlsx:"1"`
-	LastName  string `xlsx:"2"`
-	Age       string `xlsx:"3"`
+    Id        string `xlsx:"0"`
+    FirstName string `xlsx:"1"`
+    LastName  string `xlsx:"2"`
+    Age       string `xlsx:"3"`
 }
 ```
 
+How to use:
+
+```go
+package main
+
+import (
+    "fmt"
+    "github.com/PreciousNyasulu/structurama/reader"
+)
+
+func main() {
+    data, err := structurama.ReadFile("./example.xlsx", Person{}, true)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    fmt.Println(data)
+}
+```
+
+## Casting to the Struct
+
+```go
+func main() {
+    data, err := structurama.ReadFile("./example.xlsx", Person{}, true)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    fmt.Println(data)
+
+    peopleData, ok := data.([]Person)
+    if ok {
+        for _ , item := range peopleData  {
+            fmt.Println(item.Id, item.FirstName, item.LastName, item.Age)
+        }
+    }                         
+}
+```
 
 ## Contributing
 

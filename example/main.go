@@ -11,7 +11,14 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(data)
+	fmt.Println(data)		
+
+	personData, ok := data.([]Person)
+	if ok {
+		for _ , item := range personData  {
+			fmt.Println(item.Id, item.FirstName, item.LastName, item.Age)
+		}
+	}
 }
 
 type Person struct {
