@@ -1,5 +1,5 @@
 
-# Structurama for Go
+# Structurama
 
 Structurama is a lightweight package designed to simplify the process of reading data from Excel files and mapping it to custom Go structs.
 
