@@ -20,18 +20,17 @@ go get -u github.com/PreciousNyasulu/structurama
 package main
 
 import (
-    "fmt"
-    "github.com/PreciousNyasulu/structurama"
+	"fmt"
+	"github.com/PreciousNyasulu/structurama/reader"
 )
 
 func main() {
-    data, err := structurama.ReadFile("path/to/your/excelfile.xlsx",CustomStruct,true)
-    if err != nil {
-        fmt.Println("Error:", err)
-        return
-    }
-
-    fmt.Println(data)
+	data, err := structurama.ReadFile("./example.xlsx", Person{}, true)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(data)
 }
 ```
 
@@ -40,10 +39,11 @@ func main() {
 Define a custom struct to represent the structure of the data you expect from the Excel file.
 
 ```go
-type CustomStruct struct {
-    Field1 string `xlsx:"1"`
-    Field2 int    `xlsx:"2"`
-    // Add other fields as needed
+type Person struct {
+	Id        string `xlsx:"0"`
+	FirstName string `xlsx:"1"`
+	LastName  string `xlsx:"2"`
+	Age       string `xlsx:"3"`
 }
 ```
 
