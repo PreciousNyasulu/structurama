@@ -87,7 +87,7 @@ func main() {
 Contributions are welcome! Feel free to open issues or submit pull requests.
 
 ## Inspiration 
-[tealeg/xlsx](github.com/tealeg/xlsx) - Go library for reading and writing XLSX files.
+[tealeg/xlsx](https://github.com/tealeg/xlsx) - Go library for reading and writing XLSX files.
 
 ## License
 
