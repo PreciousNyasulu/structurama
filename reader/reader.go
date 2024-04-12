@@ -9,14 +9,17 @@ import (
 	"time"
 )
 
-func ReadFile(filePath string, sheetStruct interface{}, skipHeader bool, sheetNumber ...int) (interface{}, error) {
+var sheet *xlsx.Sheet
+var sheetStruct interface{}
+var _skipHeader bool
 
+func ReadFileDefault(filePath string, customStruct interface{}, skipHeader bool, sheetNumber ...int) (interface{}, error) {
+	sheetStruct = customStruct
+	_skipHeader = skipHeader
 	xlFile, err := xlsx.OpenFile(filePath)
 	if err != nil {
 		return nil, err
 	}
-
-	var sheet *xlsx.Sheet
 
 	if len(sheetNumber) > 0 {
 		sheet, err = getSheetByNumber(xlFile, sheetNumber[0])
@@ -27,6 +30,36 @@ func ReadFile(filePath string, sheetStruct interface{}, skipHeader bool, sheetNu
 		sheet = xlFile.Sheets[0]
 	}
 
+	data, err := read(sheet)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
+func ReadFileWithSheetName(filePath string, customStruct interface{}, skipHeader bool, sheetName string) (interface{}, error) {
+	sheetStruct = customStruct
+	_skipHeader = skipHeader
+	xlFile, err := xlsx.OpenFile(filePath)
+	if err != nil {
+		return nil, err
+	}
+
+	sheet, err = getSheetByName(xlFile, sheetName)
+	if err != nil {
+		return nil, err
+	}
+
+	data, err := read(sheet)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
+func read(sheet *xlsx.Sheet) (interface{}, error) {
 	// Get the type of struct
 	templateType := reflect.TypeOf(sheetStruct)
 
@@ -37,7 +70,7 @@ func ReadFile(filePath string, sheetStruct interface{}, skipHeader bool, sheetNu
 	// Iterate through rows
 	for r_i, row := range sheet.Rows {
 		// Skip header if
-		if skipHeader && r_i == 0 {
+		if _skipHeader && r_i == 0 {
 			continue
 		}
 
@@ -48,7 +81,7 @@ func ReadFile(filePath string, sheetStruct interface{}, skipHeader bool, sheetNu
 			// Get the field corresponding to the current column index
 			field := newStruct.FieldByIndex([]int{i})
 			if field.IsValid() {
-				err = handleFieldKind(field, cell)
+				err := handleFieldKind(field, cell)
 				if err != nil {
 					return nil, err
 				}
@@ -69,7 +102,14 @@ func getSheetByNumber(xlFile *xlsx.File, sheetNumber int) (*xlsx.Sheet, error) {
 	if isValidSheetNumber(sheetNumber, len(xlFile.Sheets)) {
 		return xlFile.Sheets[sheetNumber], nil
 	}
-	return nil, fmt.Errorf("Invalid sheet number: %v", sheetNumber)
+	return nil, fmt.Errorf("invalid sheet number: %v", sheetNumber)
+}
+
+func getSheetByName(xlFile *xlsx.File, sheetName string) (*xlsx.Sheet, error) {
+	if xlFile.Sheet[sheetName] != nil {
+		return xlFile.Sheet[sheetName], nil
+	}
+	return nil, fmt.Errorf("invalid sheet name: %s", sheetName)
 }
 
 // handleFieldKind: Convert cell value based on the field type
@@ -103,7 +143,7 @@ func handleFieldKind(field reflect.Value, cell *xlsx.Cell) error {
 				}
 			}
 		} else {
-			fmt.Errorf("Unsupported type for pointer: %v", field.Type().Elem().Kind())
+			return fmt.Errorf("unsupported type for pointer: %v", field.Type().Elem().Kind())
 		}
 
 	case reflect.Struct:
