@@ -38,7 +38,7 @@ func ReadFileDefault(filePath string, customStruct interface{}, skipHeader bool,
 	return data, nil
 }
 
-func ReadFileWithSheetName(filePath string, customStruct interface{}, skipHeader bool, sheetName string) (interface{}, error) {
+func ReadFileBySheetName(filePath string, customStruct interface{}, skipHeader bool, sheetName string) (interface{}, error) {
 	sheetStruct = customStruct
 	_skipHeader = skipHeader
 	xlFile, err := xlsx.OpenFile(filePath)
