@@ -5,8 +5,15 @@ import (
 	"github.com/PreciousNyasulu/structurama/reader"
 )
 
+type Person struct {
+	Id        string `xlsx:"0"`
+	FirstName string `xlsx:"1"`
+	LastName  string `xlsx:"2"`
+	Age       string `xlsx:"3"`
+}
+
 func main() {
-	data, err := structurama.ReadFile("./example.xlsx", Person{}, true)
+	data, err := structurama.ReadFileDefault("./example.xlsx", Person{}, true)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -19,11 +26,4 @@ func main() {
 			fmt.Println(item.Id, item.FirstName, item.LastName, item.Age)
 		}
 	}
-}
-
-type Person struct {
-	Id        string `xlsx:"0"`
-	FirstName string `xlsx:"1"`
-	LastName  string `xlsx:"2"`
-	Age       string `xlsx:"3"`
 }

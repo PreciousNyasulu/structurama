@@ -40,7 +40,20 @@ import (
 )
 
 func main() {
-    data, err := structurama.ReadFile("./example.xlsx", Person{}, true)
+    data, err := structurama.ReadFileDefault("./example.xlsx", Person{}, true)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    fmt.Println(data)
+}
+```
+
+Here is how you can read file by Sheetname: 
+
+```go
+func main() {
+    data, err := structurama.ReadFileBySheetName("./example.xlsx", Person{}, true,"Sheet1")
     if err != nil {
         fmt.Println(err)
         return
@@ -53,7 +66,7 @@ func main() {
 
 ```go
 func main() {
-    data, err := structurama.ReadFile("./example.xlsx", Person{}, true)
+    data, err := structurama.ReadFileDefault("./example.xlsx", Person{}, true)
     if err != nil {
         fmt.Println(err)
         return
@@ -72,6 +85,9 @@ func main() {
 ## Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests.
+
+## Inspiration 
+[tealeg/xlsx](https://github.com/tealeg/xlsx) - Go library for reading and writing XLSX files.
 
 ## License
 
