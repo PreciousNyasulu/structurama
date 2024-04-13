@@ -1,7 +1,5 @@
-github.com/PreciousNyasulu/structurama v0.0.0-20240226073237-075970a3ea33 h1:xRtfBwGR+ntflsfwPKnkVFZPej1nd2GWN3BBD+3IIiI=
-github.com/PreciousNyasulu/structurama v0.0.0-20240226073237-075970a3ea33/go.mod h1:eUGtseRkj4kz8v8qK2lmWPH8951apHhM5ZCF08cYmZQ=
-github.com/PreciousNyasulu/structurama v0.0.0-20240226074918-bf87677a4617 h1:hUJLTpaqdHCtjyrxRuLG9WBUAztWVpBXhjPamWqt+C4=
-github.com/PreciousNyasulu/structurama v0.0.0-20240226074918-bf87677a4617/go.mod h1:eUGtseRkj4kz8v8qK2lmWPH8951apHhM5ZCF08cYmZQ=
+github.com/PreciousNyasulu/structurama v0.0.0-20240226115724-29cfc712d753 h1:CoQCWRRC4aYjbI85fxyfhnPxeELeqpdCVq8Xq9fV/AU=
+github.com/PreciousNyasulu/structurama v0.0.0-20240226115724-29cfc712d753/go.mod h1:eUGtseRkj4kz8v8qK2lmWPH8951apHhM5ZCF08cYmZQ=
 github.com/kr/pretty v0.1.0 h1:L/CwN0zerZDmRFUapSPitk6f+Q3+0za1rQkzVuMiMFI=
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=
 github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=

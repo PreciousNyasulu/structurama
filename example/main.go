@@ -2,20 +2,24 @@ package main
 
 import (
 	"fmt"
-	"github.com/PreciousNyasulu/structurama/reader"
+	structurama "github.com/PreciousNyasulu/structurama/reader"
 )
 
 func main() {
+	readExcelFileStructure()
+}
+
+func readExcelFileStructure() {
 	data, err := structurama.ReadFile("./example.xlsx", Person{}, true)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(data)		
+	fmt.Println(data)
 
 	personData, ok := data.([]Person)
 	if ok {
-		for _ , item := range personData  {
+		for _, item := range personData {
 			fmt.Println(item.Id, item.FirstName, item.LastName, item.Age)
 		}
 	}
